@@ -7,7 +7,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
-import {mailFolderListItems, otherMailFolderListItems} from './tileData';
+import ListData from './ListData';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -20,7 +20,7 @@ const drawerWidth = 240;
 const styles = (theme) => ({
     root: {
         flexGrow: 1,
-        height: 440,
+        height: '100%',
         zIndex: 1,
         overflow: 'hidden',
         position: 'relative',
@@ -69,14 +69,13 @@ class App extends Component {
                     }}
                 >
                     <div className={classes.toolbar}/>
-                    <List>{mailFolderListItems}</List>
+                    <List><ListData/></List>
                     <Divider/>
                     <List>
                         <ListItem button
                                   onClick={() => {
                                       this.props.history.push('/aboutme')
-                                  }}
-                        >
+                                  }}>
                             <ListItemIcon>
                                 <InboxIcon/>
                             </ListItemIcon>
