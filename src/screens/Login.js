@@ -55,7 +55,6 @@ class Login extends Component {
 
     render() {
         const  authenticated = this.isAuthenticated()
-        console.log(authenticated,'jj')
         return (
             <div>
                 {authenticated ? <Redirect to={{pathname: '/login'}}/> :
