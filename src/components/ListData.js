@@ -25,7 +25,7 @@ class ListData extends Component {
                 <ListItem button
                           style={{backgroundColor:'yellow'}}
                           onClick={() => {
-                              this.props.history.push('/aboutme');
+                              this.props.history.push('/login');
                           }}>
                     <ListItemIcon>
                         <InboxIcon color="primary"
