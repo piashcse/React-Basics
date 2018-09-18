@@ -46,10 +46,6 @@ const rows = [
     createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
     createData('Eclair', 262, 16.0, 24, 6.0),
     createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
 ];
 
 function TableData(props) {
@@ -60,11 +56,10 @@ function TableData(props) {
             <Table className={classes.table}>
                 <TableHead>
                     <TableRow>
-                        <CustomTableCell>Dessert (100g serving)</CustomTableCell>
-                        <CustomTableCell numeric>Calories</CustomTableCell>
-                        <CustomTableCell numeric>Fat (g)</CustomTableCell>
-                        <CustomTableCell numeric>Carbs (g)</CustomTableCell>
-                        <CustomTableCell numeric>Protein (g)</CustomTableCell>
+                        <CustomTableCell>OrderId</CustomTableCell>
+                        <CustomTableCell>Product name</CustomTableCell>
+                        <CustomTableCell numeric>quatity</CustomTableCell>
+                        <CustomTableCell numeric>price</CustomTableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -72,12 +67,11 @@ function TableData(props) {
                         return (
                             <TableRow className={classes.row} key={row.id}>
                                 <CustomTableCell component="th" scope="row">
-                                    {row.name}
+                                    {row.id}
                                 </CustomTableCell>
-                                <CustomTableCell numeric>{row.calories}</CustomTableCell>
+                                <CustomTableCell component="th" scope="row">{row.name}</CustomTableCell>
                                 <CustomTableCell numeric>{row.fat}</CustomTableCell>
                                 <CustomTableCell numeric>{row.carbs}</CustomTableCell>
-                                <CustomTableCell numeric>{row.protein}</CustomTableCell>
                             </TableRow>
                         );
                     })}
