@@ -1,71 +1,88 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-var apiBaseUrl = "http://localhost:4000/api/";
+import axios from 'axios';
+import {Redirect} from 'react-router-dom';
+
+const apiBaseUrl = "http://localhost:3000/";
+
 class Login extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
-        this.state={
-            username:'',
-            password:'',
+        this.state = {
+            email: '',
+            password: '',
         }
     }
-    componentWillMount(){
+
+    componentWillMount() {
         // console.log("willmount prop values",this.props);
     }
-    handleClick(event){
-        var self = this;
-        var payload={
-            "userid":this.state.username,
-            "password":this.state.password,
-            "role":this.state.loginRole
+
+
+    handleClick(event) {
+        let payload = {
+            "email": this.state.email,
+            "password": this.state.password,
+            "Content-Type": 'application/json'
         }
-        /*axios.post(apiBaseUrl+'login', payload)
-            .then(function (response) {
+        axios.post(apiBaseUrl + 'user/login', payload)
+            .then((response) => {
                 console.log(response);
-                if(response.data.code == 200){
-                    console.log("Login successfull");
-                   /!* var uploadScreen=[];
-                    uploadScreen.push(<UploadPage appContext={self.props.appContext} role={self.state.loginRole}/>)
-                    self.props.appContext.setState({loginPage:[],uploadScreen:uploadScreen})*!/
+                if (response.status == 200) {
+                    console.log("Login successfull" + response.data.token);
+                    localStorage.setItem('token', response.data.token);
                 }
-                else if(response.data.code == 204){
+                else if (response.status == 204) {
                     console.log("Username password do not match");
                     alert(response.data.success)
                 }
-                else{
+                else {
                     console.log("Username does not exists");
                     alert("Username does not exist");
                 }
             })
-            .catch(function (error) {
+            .catch((error) => {
                 console.log(error);
-            });*/
+            });
+    }
+
+    isAuthenticated() {
+        const token = localStorage.getItem('token');
+        return token && token.length > 10;
     }
 
     render() {
+        const  authenticated = this.isAuthenticated()
+        console.log(authenticated,'jj')
         return (
-            <div align="center">
-                <MuiThemeProvider>
-                    <div>
-                        <TextField
-                            hintText="Enter user name"
-                            floatingLabelText="User name"
-                            onChange = {(event,newValue) => this.setState({username:newValue})}
-                        />
-                        <br/>
-                        <TextField
-                            type="password"
-                            hintText="Enter your Password"
-                            floatingLabelText="Password"
-                            onChange = {(event,newValue) => this.setState({password:newValue})}
-                        />
-                        <br/>
-                        <RaisedButton label="Submit" primary={true} style={style} onClick={(event) => this.handleClick(event)}/>
-                    </div>
-                </MuiThemeProvider>
+            <div>
+                {authenticated ? <Redirect to={{pathname: '/login'}}/> :
+                    <div align="center">
+                        <MuiThemeProvider>
+                            <div>
+                                <TextField
+                                    hintText="Enter email"
+                                    floatingLabelText="Email"
+                                    style={{primary: 'red'}}
+                                    onChange={(event, newValue) => this.setState({email: newValue})}
+                                />
+                                <br/>
+                                <TextField
+                                    type="password"
+                                    hintText="Enter your Password"
+                                    floatingLabelText="Password"
+                                    onChange={(event, newValue) => this.setState({password: newValue})}
+                                />
+                                <br/>
+                                <RaisedButton label="Submit" primary={true} style={style}
+                                              onClick={(event) => this.handleClick(event)}/>
+                            </div>
+                        </MuiThemeProvider>
+                    </div>}
             </div>
+
         );
     }
 }
