@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import ListItem from "@material-ui/core/ListItem/ListItem";
 import {withRouter} from 'react-router-dom';
-import TableData from "./TableData";
+import TableData from "../components/TableData";
 
 
 class Landing extends Component {
